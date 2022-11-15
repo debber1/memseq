@@ -1,9 +1,10 @@
 # A script by Robbe Decapmaker
 # Find this script on github: https://github.com/debber1/memseq
 # This file produces a memory sequence for the DDC course in GroupT based on a given string.
-# Every character gets mapped to a binairy address which points to the base address of a 16x32 space in memory.
-# Just enter the characters you want in the string variable, and run this file.
+# Every character gets mapped to a binary address which points to the base address of a 16x32 space in memory.
+# Just run this file and enter the characters you want.
 # Replace the adresses stored in hello_world.mem with the output of this script
+# NOTE: There is a bug in vivado! If you change the contents of hello_world.mem, it will not change the mapping on the actual FPGA. You have to load a new file e.g. 'test.mem' and point your screenbuffermemory to it :)
 # If you have a problem, just submit an issue!
 
 character= {
@@ -104,12 +105,13 @@ character= {
         "~":94 
         }
 
-string = "Don't worry I've got a script for this"
+string = input('Give a sentence: ')
 charlist = list(string.strip())
 numberlist = []
 for char in charlist:
     numberlist.append(character[char]*32)
-print(len(numberlist))
+print("Length of your sencence: " + str(len(numberlist)))
+print("binary encoding:")
 output = ""
 for number in numberlist:
     output = output + format(number, "b").zfill(12) + "\n" 
